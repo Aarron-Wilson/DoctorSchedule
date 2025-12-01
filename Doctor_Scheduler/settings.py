@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-o$p5-0i6zroqmwx9-5ajb$mqy@hdw&+xe%e-)9&=$1tfg%xu-o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -49,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CSRF_TRUSTED_ORIGINS = ['https://*.replit.dev', 'https://*.repl.co']
 
 ROOT_URLCONF = 'Doctor_Scheduler.urls'
 
