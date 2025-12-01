@@ -1,0 +1,148 @@
+{% extends 'base.html' %} 
+{% block content %}
+    <div style="display:flex;flex-direction: row;">
+        <p style="font-size:36px;margin-top:6px;margin-bottom:6px;margin-left:15px;"> Blocks </p>
+        <button type="button" style="margin-top:0px;margin-left:10px;" class="btn btn-link" hx-get="/block/create" hx-target="#modal_target" hx-swap="innerHTML"
+         onclick="showCustomModal()"> Add+ </button>
+    </div>
+    
+
+    <table id="main_schedule" style="margin-left:40px;margin-top:10px;">
+        <tr>
+            <th style="width:300px;"> Title </th>
+            <th style="width:75px;"> Vacation Eligibility </th>
+            <th style="width:75px;"> Min Participation </th>
+            <th style="width:75px;"> Max Participation </th>
+            <th style="width:150px;"> Actions </th>
+        </tr>
+    
+        {% for block in blocks %}
+        <tr id="block_row_{{block.pk}}">
+            <td style="width:500px;"> {{block.name}}</td>
+            <td style="width:75px;"> {{block.vacation_type}}</td>
+            <td style="width:75px;"> {{block.min_visits}}</td>
+            <td style="width:75px;"> {{block.max_visits}}</td>
+            <td style="width:150px;">
+                <div style="display: flex;flex-direction: row;">
+                    <button type="button" style="margin-top:0px;margin-left:10px;" class="btn btn-link" hx-get="/block/edit/{{block.pk}}" hx-target="#modal_target" hx-swap="innerHTML" onclick="showCustomModal()"> Update </button>
+                    <button type="button" style="margin-top:0px;margin-left:10px;" class="btn btn-link"  onclick="delete_block({{block.pk}})"> Delete </button>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <div id="modal_target"></div>
+    <div id="customModalBackdrop" class="custom-modal-backdrop fade"></div>
+    
+    <script>
+        function showCustomModal() {
+        const modal = document.getElementById('createItemModal');
+        const backdrop = document.getElementById('customModalBackdrop');
+
+        // Add 'show' class to display the elements
+        //modal.classList.add('show');
+        backdrop.classList.add('show');
+
+        // Optional: Add 'fade' for backdrop if you want a subtle transition
+        setTimeout(() => {
+          backdrop.classList.add('fade');
+        }, 0);
+
+        // Optional: Prevent scrolling the body when modal is open
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function delete_block(pk){
+        fetch(`/block/delete/${pk}`)
+        document.getElementById(`block_row_${pk}`).remove()
+      }
+    </script>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+    
+        th,
+        td {
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+            word-wrap: break-word;
+            /* For older browsers */
+            overflow-wrap: break-word;
+            /* Modern equivalent */
+        }
+    
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+    
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    
+        tr:hover {
+            background-color: #e6f7ff;
+            /* Light blue on hover */
+        }
+
+        .custom-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+        display: none; /* Hidden by default */
+        z-index: 1040; /* Bootstrap's modal backdrop z-index */
+      }
+
+      .custom-modal {
+        
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1050; /* Bootstrap's modal z-index */
+        outline: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      /* Classes to show/hide */
+      .custom-modal-backdrop.show,
+      .custom-modal.show {
+        display: block;
+      }
+
+      /* Basic fade effect (optional, can be more complex with transitions) */
+      .custom-modal-backdrop.fade {
+        opacity: 0;
+        transition: opacity 0.15s linear;
+      }
+      .custom-modal-backdrop.fade.show {
+        opacity: 1;
+      }
+
+      /* Style for the modal-dialog to center it horizontally */
+      .custom-modal .modal-dialog {
+        margin: auto;
+        /* Adjust max-width as needed */
+        max-width: 500px;
+        pointer-events: none; /* Allow clicks to pass through to the backdrop */
+      }
+
+      /* Style for the modal-content inside the custom modal */
+      .custom-modal .modal-content {
+        pointer-events: auto; /* Re-enable clicks for the modal content */
+      }
+    </style>
+
+{% endblock %}

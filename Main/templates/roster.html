@@ -1,0 +1,58 @@
+{% extends 'base.html' %} 
+{% block content %}
+<p> Roster </p>
+
+    <table>
+        <tr>
+            <th style="width:300px;"> Name </th>
+            <th style="width:75px;"> Year </th>
+            <th style="width:75px;"> In IM </th>
+            <th style="width:75px;"> Months of Wards Left </th>
+            <th style="width:150px;"> Actions </th>
+        </tr>
+
+        {% for doctor in doctors %}
+            <tr>
+                <td style="width:500px;"> {{doctor.name}}</td>
+                <td style="width:75px;"> {{doctor.year}}</td>
+                <td style="width:75px;"> {{doctor.IN_IM}}</td>
+                <td style="width:75px;"> {{doctor.MONTHS_OF_WARDS_LEFT}}</td>
+                <td style="width:150px;"> <a href=""> Update </a> &nbsp <a href=""> Delete </a> </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+    
+        th,
+        td {
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+            word-wrap: break-word; /* For older browsers */
+            overflow-wrap: break-word; /* Modern equivalent */
+        }
+    
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+    
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    
+        tr:hover {
+            background-color: #e6f7ff;
+            /* Light blue on hover */
+        }
+    </style>
+
+{% endblock %}

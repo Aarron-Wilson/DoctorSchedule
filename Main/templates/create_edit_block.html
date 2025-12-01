@@ -1,0 +1,79 @@
+<div
+  id="createItemModal"
+  class="custom-modal"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content shadow-lg border-0 rounded-4">
+      <form id="create-item-form" action="{% if pk %}/block/edit/{{pk}}{% else %}/block/create{% endif %}" method="post" novalidate>
+        {% csrf_token %}
+        <div class="modal-header bg-primary text-white p-4 rounded-top-4">
+          <h5 class="modal-title fs-4 fw-bold" id="createItemModalLabel">
+            New Block
+            
+
+          </h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            onclick="document.getElementById('customModalBackdrop').classList.remove('show');document.getElementById('createItemModal').remove()"
+          ></button>
+        </div>
+
+        <div class="modal-body p-5 p-md-4" style="background-color: white;">
+
+          <div class="mb-4">
+            <label for="{{ form.name.id_for_label }}" class="form-label fw-semibold"
+              >Name</label
+            >
+            {{ form.name }}
+            <div id="name-errors" class="text-danger small mt-1"></div>
+          </div>
+
+          <div class="mb-4">
+            <label
+              for="{{ form.vacation_type.id_for_label }}"
+              class="form-label fw-semibold"
+              >Vacation Type</label
+            >
+            {{ form.vacation_type }}
+            <div id="vacation_type-errors" class="text-danger small mt-1"></div>
+          </div>
+
+          <div class="mb-4">
+            <label
+              for="{{ form.min_visits.id_for_label }}"
+              class="form-label fw-semibold"
+              >Min Visits</label
+            >
+            {{ form.min_visits }}
+            <div id="min_visits-errors" class="text-danger small mt-1"></div>
+          </div>
+
+          <div class="mb-4">
+            <label
+              for="{{ form.max_visits.id_for_label }}"
+              class="form-label fw-semibold"
+              >Max Visits</label
+            >
+            {{ form.max_visits }}
+            <div id="max_visits-errors" class="text-danger small mt-1"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer d-flex justify-content-between p-4 p-md-5" style="background-color: white;">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            onclick="document.getElementById('customModalBackdrop').classList.remove('show');document.getElementById('createItemModal').remove()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary px-4">
+            Save Block
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
