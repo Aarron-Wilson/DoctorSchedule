@@ -1,0 +1,63 @@
+<div id="createItemModal" class="custom-modal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style='max-width: 1000px;'>
+    <div class="modal-content shadow-lg border-0 rounded-4">
+      <div class="modal-header bg-primary text-white p-4 rounded-top-4" style='justify-content: center;'>
+        <h5 class="modal-title fs-4 fw-bold" id="createItemModalLabel">
+          Manage Job Slots
+        </h5>
+        <button type="button" class="btn-close btn-close-white" style='font-size:24px;position: absolute;right: 20px;'
+          onclick="document.getElementById('customModalBackdrop').classList.remove('show');document.getElementById('createItemModal').remove()">
+          </button>
+      </div>
+
+      <div class="modal-body p-5 p-md-4" style="background-color: white;">
+        <p> Job Slots </p>
+        <table id="job_slots" style="margin-left:40px;margin-top:10px;">
+          <tr>
+            <th style="width:100px;"> Slot # </th>
+            <th style="width:300px;"> Resident Eligibility </th>
+            <th style="width:200px;"> Number of Residents </th>
+            <th style="width:125px;text-align: center;"> Actions </th>
+          </tr>
+
+          {% for job_slot in job_slots %}
+          <tr id="block_row_{{block.pk}}">
+            <td style="width:100px;">Slot: {{forloop.counter}}</td>
+            <td style="width:75px;"> {% if job_slot.only_IM %}Only IM{% else %}Both IM/Not IM{% endif %}  Years: {{job_slot.min_year}}-{{job_slot.max_year}}</td>
+            <td style="width:200px;"> {{job_slot.amount}}</td>
+            <td style="width:125px;">
+              <div style="display: flex;flex-direction: row;">
+                <button type="button" style="margin-top:0px;margin-left:10px;" class="btn btn-link"
+                  onclick="delete_block({{block.pk}})"> Delete </button>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <p> Add Job Slot </p>
+        <label for='amount'> Amount </label>
+        <input type="number" id="amount" name="amount" min="1" max="50" value="1">
+        <br>
+        <label for='only_IM'> Only IM </label>
+        <input type="checkbox" id="only_IM" name="only_IM">
+        <br>
+        <label for='min_year'> Min Year </label>
+        <input type="number" id="min_year" name="min_year" min="1" max="3" value="1">
+        <br>
+        <label for='max_year'> Max Year </label>
+        <input type="number" id="max_year" name="max_year" min="1" max="3" value="1">
+        <br>
+        <button type="button" style="margin-top:10px;margin-left:10px;" class="btn btn-outline-secondary"
+          onclick="add_job_slot({{block.pk}})"> Add + </button>
+      </div>
+
+      <div class="modal-footer d-flex p-4 p-md-5" style="background-color: white;justify-content: center;">
+         <button type="button" class="btn btn-outline-secondary"
+          onclick="document.getElementById('customModalBackdrop').classList.remove('show');document.getElementById('createItemModal').remove()">
+            Go Back
+          </button>
+      </div>
+    </div>
+  </div>
+</div>
