@@ -12,4 +12,6 @@ urlpatterns = [
     path('block/delete/<int:pk>',views.delete_block,name='delete'),
     path('schedule',views.schedule_page),
     path('manage_job_slots/<int:pk>',views.manage_job_slots),
+    path('job_slot/create/<int:pk>',views.add_job_slot),
+    path('job_slot/delete/<int:pk>',views.delete_job_slot),
 ]
